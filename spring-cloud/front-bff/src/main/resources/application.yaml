@@ -1,0 +1,186 @@
+#
+#eureka:
+#  instance:
+#    instance-id: ${spring.application.name}
+#    prefer-ip-address: true
+#server:
+#  port: 10000
+#spring:
+#  application:
+#    name: front-bff
+#  profiles:
+#    active: dev
+#  config:
+#    import: optional:configserver:http://localhost:8888
+#
+#  cloud:
+#    gateway:
+#      server:
+#        webflux:
+#          discovery:
+#            locator:
+#              enabled: true
+#              lower-case-service-id: true
+#
+#          default-filters:
+#            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin Access-Control-Request-Headers
+#            - SaveSession
+#            - TokenRelay=
+#
+#          routes:
+#            - id: front-bff-account-service
+#              uri: http://localhost:3000
+#              predicates:
+#                - Path=/**
+#              filters:    # front bff token and relay to account service
+#                - TokenRelay=
+#
+#  security:
+#    oauth2:    # configure as resource server wit standard gateway
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:9090
+#      client:
+#        provider:
+#          itp-front-bff:
+#            issuer-uri: http://localhost:9090
+#
+#        registration:
+#          itp-front-bff:
+#            provider: itp-front-bff
+#            client-id: itp-front-bff
+#            client-secret: qwerqwer
+#            redirect-uri: http://localhost:10000/login/oauth2/code/itp-front-bff
+#            authorization-grant-type:
+#              - authorization_code
+#            scope:
+#              - openid # Auto issue access token
+#              - profile # Get profile
+#              - email # Get email
+
+
+
+
+
+
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}
+    prefer-ip-address: true
+
+server:
+  port: 10000
+
+spring:
+  application:
+    name: front-bff
+  profiles:
+    active: dev
+  config:
+    import: optional:configserver:http://localhost:8888
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+
+          default-filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin Access-Control-Request-Headers
+            - SaveSession
+            - TokenRelay=
+
+          routes:
+            # ── Specific zones first (most specific path wins) ───────────────
+            # BFF is the ONLY place zone routing is configured.
+            # Next.js zones have no knowledge of each other.
+
+            - id: zone-profile
+              uri: http://localhost:3004
+              predicates:
+                - Path=/profile,/profile/**
+              filters:
+                - TokenRelay=
+
+            - id: zone-store
+              uri: http://localhost:3002
+              predicates:
+                - Path=/store,/store/**
+              filters:
+                - TokenRelay=
+
+            - id: zone-card
+              uri: http://localhost:3003
+              predicates:
+                - Path=/card,/card/**
+              filters:
+                - TokenRelay=
+
+            - id: zone-iphone
+              uri: http://localhost:3005
+              predicates:
+                - Path=/iphone,/iphone/**
+              filters:
+                - TokenRelay=
+
+            - id: zone-ipad
+              uri: http://localhost:3006
+              predicates:
+                - Path=/ipad,/ipad/**
+              filters:
+                - TokenRelay=
+
+            - id: zone-watch
+              uri: http://localhost:3007
+              predicates:
+                - Path=/watch,/watch/**
+              filters:
+                - TokenRelay=
+
+            - id: zone-airpods
+              uri: http://localhost:3008
+              predicates:
+                - Path=/airpods,/airpods/**
+              filters:
+                - TokenRelay=
+
+            - id: zone-mac
+              uri: http://localhost:3001
+              predicates:
+                - Path=/mac,/mac/**
+              filters:
+                - TokenRelay=
+
+            # ── Home zone — catch-all, MUST be last ──────────────────────────
+            - id: zone-home
+              uri: http://localhost:3000
+              predicates:
+                - Path=/**
+              filters:
+                - TokenRelay=
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090
+      client:
+        provider:
+          itp-front-bff:
+            issuer-uri: http://localhost:9090
+        registration:
+          itp-front-bff:
+            provider: itp-front-bff
+            client-id: itp-front-bff
+            client-secret: qwerqwer
+            redirect-uri: http://localhost:10000/login/oauth2/code/itp-front-bff
+            authorization-grant-type:
+              - authorization_code
+            scope:
+              - openid
+              - profile
+              - email

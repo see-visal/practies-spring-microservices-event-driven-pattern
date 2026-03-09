@@ -1,0 +1,31 @@
+
+spring:
+  application:
+    name: config
+  profiles:
+    active: vault , git     # Use native (local file system) by default. Change to 'git,vault' for production
+  cloud:
+    config:
+      server:
+        vault:
+          host: localhost
+          port: 8200
+          scheme: http
+          authentication: TOKEN
+          token: myroot
+          kv-version: 2
+          profile-separator: /
+          backend: secret
+
+        git:
+          uri:  ${GL_URI}
+          username: ${GL_USER}
+          password: ${GL_TOKEN}
+          default-label: configrepo
+          search-paths: "/**"   # find all folders
+        native:
+          search-locations:
+            - file:D:\Microservices\itp-e-banking\config-repository
+            - file:D:\Microservices\itp-e-banking\config-repository\{application}\
+server:
+  port: 8888

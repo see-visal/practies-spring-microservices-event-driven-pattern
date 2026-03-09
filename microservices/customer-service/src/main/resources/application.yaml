@@ -1,0 +1,65 @@
+axon:
+  axonserver:
+    enabled: false
+  # serializer configuration for Axon Framework
+  # the purpose use serialization for event sourcing and command handling in Axon Framework,
+    # which allows you to convert complex  objects into a format that can be easily stored and transmitted.
+  serializer:
+    general: jackson
+    events: jackson
+    messages: jackson
+
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}
+    prefer-ip-address: true
+server:
+  port: 20260
+
+spring:
+  application:
+    # Name of the microservice (used by Config Server, Eureka, logs, etc.)
+    name: customer
+  profiles:
+    active: dev
+  config:
+    # Import external configuration from Spring Cloud Config Server
+    import: optional:configserver:http://localhost:8888
+
+#  cloud:
+#    config:
+#      enabled: true
+#      fail-fast: false
+
+  # Database Configuration (PostgreSQL)
+
+  datasource:
+    # JDBC connection URL for PostgreSQL (Docker container on port 16851)
+    url: jdbc:postgresql://localhost:16851/db_customer
+    # Database username
+    username: itpusr
+    # Database password
+    password: itp@168
+    # PostgreSQL JDBC driver
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      # Update schema instead of drop and create
+      ddl-auto: update
+    # Show generated SQL queries in logs
+    show-sql: false
+
+    properties:
+      hibernate:
+        # Format SQL output to be more readable
+        format_sql: true
+
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090
+
+

@@ -1,0 +1,58 @@
+#
+eureka:
+  instance:
+    instance-id: ${spring.application.name}
+    prefer-ip-address: true
+server:
+  port: 20000
+spring:
+  application:
+    name: admin-e-backing
+  profiles:
+    active: dev
+  config:
+    import: optional:configserver:http://localhost:8888
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          default-filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin Access-Control-Request-Headers
+            - SaveSession
+            - TokenRelay=
+
+          routes:
+            - id: admin-frontend
+              uri: http://localhost:3001
+              predicates:
+                - Path=/**
+#              filters:    # front bff token and relay to account service
+#                - TokenRelay=
+
+  security:
+    oauth2:    # configure as resource server wit standard gateway
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090
+      client:
+        provider:
+          admin-client:
+            issuer-uri: http://localhost:9090
+
+        registration:
+          admin-client:
+            provider: admin-client
+            client-id: admin-client
+            client-secret: qwerqwer
+            redirect-uri: http://localhost:20000/login/oauth2/code/admin-client
+            authorization-grant-type:
+              - authorization_code
+            scope:
+              - openid # Auto issue access token
+              - profile # Get profile
+              - email # Get email

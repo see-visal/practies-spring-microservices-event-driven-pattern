@@ -1,0 +1,15 @@
+package dto;
+
+import lombok.Builder;
+
+@Builder
+public record PageResponse(
+        Object data,
+        Integer pageNumber,
+        Integer pageSize,
+        Integer size,
+        Long totalRecords,
+        Integer totalPages
+) {
+
+}

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-color: #ffffff;
+            --input-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Decorative circles for background depth */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            animation: float 10s infinite ease-in-out;
+        }
+        .c1 { width: 300px; height: 300px; background: #ff0076; top: -50px; left: -50px; }
+        .c2 { width: 400px; height: 400px; background: #00d2ff; bottom: -100px; right: -100px; animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(20px); }
+        }
+
+        /* Glassmorphism Card */
+        .login-container {
+            position: relative;
+            z-index: 1;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 400px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .login-header h2 {
+            color: var(--text-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .login-header p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        /* Form Controls */
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            background: var(--input-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--secondary-color);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255,255,255,0.6);
+            transition: 0.3s;
+        }
+
+        .input-group input:focus + i {
+            color: var(--secondary-color);
+        }
+
+        /* Login Button */
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #ff0076, #ff4757);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(255, 0, 118, 0.3);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 0, 118, 0.4);
+        }
+
+        /* Divider */
+        .divider {
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .divider span {
+            position: relative;
+            z-index: 2;
+            background: transparent;
+            color: rgba(255,255,255,0.6);
+            padding: 0 10px;
+            font-size: 0.85rem;
+        }
+
+        /* Social Login Buttons */
+        .social-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--input-bg);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Specific colors on hover */
+        .social-btn.google:hover { color: #DB4437; border-color: #DB4437; }
+        .social-btn.facebook:hover { color: #4267B2; border-color: #4267B2; }
+        .social-btn.github:hover { color: #f0f6fc; border-color: #f0f6fc; }
+        .social-btn.linkedin:hover { color: #0077b5; border-color: #0077b5; }
+
+        /* Footer Links */
+        .footer-links {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer-links a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error Message Box */
+        .alert-error {
+            background: rgba(255, 71, 87, 0.2);
+            border: 1px solid rgba(255, 71, 87, 0.5);
+            color: #ffcccb;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="circle c1"></div>
+<div class="circle c2"></div>
+
+<div class="login-container">
+    <div class="login-header">
+        <h2>Welcome Back</h2>
+        <p>Please enter your details to sign in.</p>
+    </div>
+
+    <div th:if="${param.error}" class="alert-error">
+        <i class="fas fa-exclamation-circle"></i>
+        <span>Invalid username or password.</span>
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <div class="input-group">
+            <input type="text" name="username" placeholder="Username" required>
+            <i class="fas fa-user"></i>
+        </div>
+        <div class="input-group">
+            <input type="password" name="password" placeholder="Password" required>
+            <i class="fas fa-lock"></i>
+        </div>
+
+        <button type="submit" class="btn-login">SIGN IN</button>
+    </form>
+
+    <div class="divider">
+        <span>Or continue with</span>
+    </div>
+
+    <div class="social-container">
+        <a th:href="@{/oauth2/authorization/google}" class="social-btn google" title="Login with Google">
+            <i class="fab fa-google"></i>
+        </a>
+        <a th:href="@{/oauth2/authorization/facebook}" class="social-btn facebook" title="Login with Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a th:href="@{/oauth2/authorization/github}" class="social-btn github" title="Login with GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="#" class="social-btn linkedin" title="More Options">
+            <i class="fas fa-ellipsis-h"></i>
+        </a>
+    </div>
+
+    <div class="footer-links">
+        <p>Don't have an account? <a th:href="@{/register}">Sign up</a></p>
+        <p style="margin-top: 5px;"><a th:href="@{/forgot-password}">Forgot Password?</a></p>
+    </div>
+</div>
+
+</body>
+</html>

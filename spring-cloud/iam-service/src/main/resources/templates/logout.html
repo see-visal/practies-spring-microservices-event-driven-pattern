@@ -1,0 +1,169 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Signed Out</title>-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">-->
+
+<!--    <style>-->
+<!--        /* -&#45;&#45; KEEPING YOUR EXACT CSS -&#45;&#45; */-->
+<!--        :root {-->
+<!--            &#45;&#45;primary-color: #6c5ce7;-->
+<!--            &#45;&#45;secondary-color: #a29bfe;-->
+<!--            &#45;&#45;glass-bg: rgba(255, 255, 255, 0.1);-->
+<!--            &#45;&#45;glass-border: rgba(255, 255, 255, 0.2);-->
+<!--            &#45;&#45;text-color: #ffffff;-->
+<!--            &#45;&#45;input-bg: rgba(255, 255, 255, 0.05);-->
+<!--        }-->
+
+<!--        * {-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            box-sizing: border-box;-->
+<!--            font-family: 'Poppins', sans-serif;-->
+<!--        }-->
+
+<!--        body {-->
+<!--            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);-->
+<!--            min-height: 100vh;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            overflow: hidden;-->
+<!--            position: relative;-->
+<!--        }-->
+
+<!--        /* Decorative circles */-->
+<!--        .circle {-->
+<!--            position: absolute;-->
+<!--            border-radius: 50%;-->
+<!--            filter: blur(80px);-->
+<!--            z-index: 0;-->
+<!--            animation: float 10s infinite ease-in-out;-->
+<!--        }-->
+<!--        .c1 { width: 300px; height: 300px; background: #ff0076; top: -50px; left: -50px; }-->
+<!--        .c2 { width: 400px; height: 400px; background: #00d2ff; bottom: -100px; right: -100px; animation-delay: 2s; }-->
+
+<!--        @keyframes float {-->
+<!--            0%, 100% { transform: translateY(0); }-->
+<!--            50% { transform: translateY(20px); }-->
+<!--        }-->
+
+<!--        /* Glassmorphism Card */-->
+<!--        .login-container {-->
+<!--            position: relative;-->
+<!--            z-index: 1;-->
+<!--            background: var(&#45;&#45;glass-bg);-->
+<!--            border: 1px solid var(&#45;&#45;glass-border);-->
+<!--            backdrop-filter: blur(20px);-->
+<!--            -webkit-backdrop-filter: blur(20px);-->
+<!--            border-radius: 20px;-->
+<!--            padding: 40px;-->
+<!--            width: 400px;-->
+<!--            box-shadow: 0 15px 35px rgba(0,0,0,0.2);-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .login-header h2 {-->
+<!--            color: var(&#45;&#45;text-color);-->
+<!--            font-weight: 600;-->
+<!--            margin-bottom: 10px;-->
+<!--            font-size: 2rem;-->
+<!--        }-->
+
+<!--        .login-header p {-->
+<!--            color: rgba(255,255,255,0.7);-->
+<!--            font-size: 0.9rem;-->
+<!--            margin-bottom: 30px;-->
+<!--        }-->
+
+<!--        /* Success Icon */-->
+<!--        .success-icon {-->
+<!--            font-size: 4rem;-->
+<!--            color: #00d2ff; /* Cyan color matching the theme */-->
+<!--            margin-bottom: 20px;-->
+<!--            animation: popIn 0.5s ease-out;-->
+<!--        }-->
+
+<!--        @keyframes popIn {-->
+<!--            0% { transform: scale(0); opacity: 0; }-->
+<!--            80% { transform: scale(1.1); }-->
+<!--            100% { transform: scale(1); opacity: 1; }-->
+<!--        }-->
+
+<!--        /* Buttons */-->
+<!--        .btn-login {-->
+<!--            width: 100%;-->
+<!--            padding: 12px;-->
+<!--            background: linear-gradient(90deg, #ff0076, #ff4757);-->
+<!--            border: none;-->
+<!--            border-radius: 10px;-->
+<!--            color: white;-->
+<!--            font-weight: 600;-->
+<!--            font-size: 1rem;-->
+<!--            cursor: pointer;-->
+<!--            transition: 0.3s;-->
+<!--            margin-top: 10px;-->
+<!--            box-shadow: 0 5px 15px rgba(255, 0, 118, 0.3);-->
+<!--            text-decoration: none; /* For <a> tags */-->
+<!--            display: inline-block;-->
+<!--        }-->
+
+<!--        .btn-login:hover {-->
+<!--            transform: translateY(-2px);-->
+<!--            box-shadow: 0 8px 20px rgba(255, 0, 118, 0.4);-->
+<!--        }-->
+
+<!--        .btn-secondary {-->
+<!--            background: transparent;-->
+<!--            border: 1px solid var(&#45;&#45;glass-border);-->
+<!--            margin-top: 15px;-->
+<!--            box-shadow: none;-->
+<!--        }-->
+
+<!--        .btn-secondary:hover {-->
+<!--            background: rgba(255, 255, 255, 0.1);-->
+<!--            box-shadow: none;-->
+<!--        }-->
+
+<!--        /* Footer Links */-->
+<!--        .footer-links {-->
+<!--            margin-top: 30px;-->
+<!--            font-size: 0.9rem;-->
+<!--            color: rgba(255,255,255,0.7);-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="circle c1"></div>-->
+<!--<div class="circle c2"></div>-->
+
+<!--<div class="login-container">-->
+
+<!--    <div class="success-icon">-->
+<!--        <i class="fas fa-check-circle"></i>-->
+<!--    </div>-->
+
+<!--    <div class="login-header">-->
+<!--        <h2>See You Soon!</h2>-->
+<!--        <p>You have been successfully signed out.</p>-->
+<!--    </div>-->
+
+<!--    <a href="/login" class="btn-login">-->
+<!--        SIGN IN AGAIN-->
+<!--    </a>-->
+
+<!--    <a href="http://localhost:10000" class="btn-login btn-secondary">-->
+<!--        GO TO HOMEPAGE-->
+<!--    </a>-->
+
+<!--    <div class="footer-links">-->
+<!--        <p>Your session has been securely ended.</p>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
