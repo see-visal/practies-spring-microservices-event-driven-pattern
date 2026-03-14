@@ -15,7 +15,9 @@ import com.see.visal.customer_service.domain.valueobject.Kyc;
 import com.see_visal.common.domain.valueoject.CustomerId;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.springframework.data.domain.Page;
+
 
 import java.util.List;
 
@@ -29,18 +31,20 @@ public interface CustomerApplicationMapper {
             (CustomerId customerId, CreateCustomerRequest  createCustomerRequest);
 
     @Mapping(source = "customerId.value" , target = "customerId")
-    @Mapping(source = "kyc"     , target = "kyc")
-    @Mapping(source = "address" , target = "address")
-    @Mapping(source = "contact" , target = "contact")
+    @Mapping(source = "kyc"     , target = "kyc", qualifiedByName = "kycToKycEntity")
+    @Mapping(source = "address" , target = "address", qualifiedByName = "addressToAddressEntity")
+    @Mapping(source = "contact" , target = "contact", qualifiedByName = "contactToContactEntity")
     CustomerEntity customerCreateEventToCustomerEntity(CustomerCreatedEvent customerCreatedEvent);
 
     // Kyc domain value object → KycEntity
+    @Named("kycToKycEntity")
     @Mapping(source = "kycId"  , target = "kycId")
     @Mapping(source = "type"   , target = "kycType")
     @Mapping(source = "number" , target = "kycNumber")
     KycEntity kycToKycEntity(Kyc kyc);
 
     // Address domain value object → AddressEntity
+    @Named("addressToAddressEntity")
     @Mapping(source = "addressId" , target = "addressId")
     @Mapping(source = "line"      , target = "line")
     @Mapping(source = "city"      , target = "city")
@@ -49,6 +53,7 @@ public interface CustomerApplicationMapper {
     AddressEntity addressToAddressEntity(Address address);
 
     // Contact domain value object → ContactEntity
+    @Named("contactToContactEntity")
     @Mapping(source = "contactId" , target = "contactId")
     @Mapping(source = "type"      , target = "type")
     @Mapping(source = "number"    , target = "number")

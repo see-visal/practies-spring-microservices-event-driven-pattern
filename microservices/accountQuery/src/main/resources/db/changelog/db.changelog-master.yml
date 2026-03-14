@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - includeAll:
+      path: db/changelog/ddl/   # Loads tables first
+  - includeAll:
+      path: db/changelog/data/  # Loads data second
+  - include:
+      file: db/changelog/ddl/14-01-changelog.sql

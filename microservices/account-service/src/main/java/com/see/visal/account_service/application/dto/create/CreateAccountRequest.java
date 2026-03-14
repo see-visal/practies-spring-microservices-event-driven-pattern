@@ -1,7 +1,7 @@
 package com.see.visal.account_service.application.dto.create;
 
-import com.see.visal.account_service.domain.valueobject.AccountTypeCode;
-import com.see.visal.account_service.domain.valueobject.Money;
+import com.see_visal.common.domain.valueoject.AccountTypeCode;
+import com.see_visal.common.domain.valueoject.Money;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

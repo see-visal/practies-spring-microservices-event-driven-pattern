@@ -1,6 +1,6 @@
 package com.see.visal.account_service.application.dto.deposit;
 
-import com.see.visal.account_service.domain.valueobject.Money;
+import com.see_visal.common.domain.valueoject.Money;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;

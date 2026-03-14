@@ -1,0 +1,24 @@
+-- liquibase formatted sql
+
+-- changeset ASUS:data-account-types-v1 runOnChange:true
+INSERT INTO account_types (account_type_id, account_type_code, account_type_name, description, is_active, interest_rate, minimum_balance, created_at, created_by, version)
+VALUES ('11111111-1111-1111-1111-111111111111', 'SAVINGS', 'Savings Account', 'Personal savings account', TRUE, 2.50, 100.00, CURRENT_TIMESTAMP, 'system', 1);
+
+INSERT INTO account_types (account_type_id, account_type_code, account_type_name, description, is_active, interest_rate, minimum_balance, created_at, created_by, version)
+VALUES ('22222222-2222-2222-2222-222222222222', 'CHECKING', 'Current Account', 'Business current account', TRUE, 0.00, 0.00, CURRENT_TIMESTAMP, 'system', 1);
+
+INSERT INTO account_types (account_type_id, account_type_code, account_type_name, description, is_active, interest_rate, minimum_balance, created_at, created_by, version)
+VALUES ('33333333-3333-3333-3333-333333333333', 'FIXED_DEPOSIT', 'Fixed Deposit', 'Fixed term deposit account', TRUE, 5.75, 1000.00, CURRENT_TIMESTAMP, 'system', 1);
+
+INSERT INTO account_types (account_type_id, account_type_code, account_type_name, description, is_active, interest_rate, minimum_balance, created_at, created_by, version)
+VALUES ('44444444-4444-4444-4444-444444444444', 'BUSINESS', 'Business Account', 'Business banking account', TRUE, 0.00, 500.00, CURRENT_TIMESTAMP, 'system', 1);
+
+INSERT INTO account_types (account_type_id, account_type_code, account_type_name, description, is_active, interest_rate, minimum_balance, created_at, created_by, version)
+VALUES ('55555555-5555-5555-5555-555555555555', 'LOAN', 'Loan Account', 'Loan account', TRUE, 8.50, 0.00, CURRENT_TIMESTAMP, 'system', 1);
+
+-- changeset ASUS:data-accounts-v1 runOnChange:true
+INSERT INTO accounts (account_id, account_number, account_holder_name, customer_id, account_type_id, account_type_code, branch_id, balance, available_balance, blocked_amount, minimum_balance, currency, account_status, status_reason, opened_date, last_transaction_date, is_joint_account, allow_overdraft, allow_debit, allow_credit, is_dormant, is_blocked, blocked_date, blocked_reason, blocked_by, daily_transaction_count, is_taxable, created_at, created_by, version)
+VALUES ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '100000001', 'Visal Soeurn', 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', '11111111-1111-1111-1111-111111111111', 'SAVINGS', 'cccccccc-cccc-cccc-cccc-cccccccccccc', 5000.00, 5000.00, 0.00, 100.00, 'USD', 'ACTIVE', NULL, '2026-01-10', '2026-03-01', FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, NULL, NULL, NULL, 5, TRUE, CURRENT_TIMESTAMP, 'system', 1);
+
+INSERT INTO accounts (account_id, account_number, account_holder_name, customer_id, account_type_id, account_type_code, branch_id, balance, available_balance, blocked_amount, minimum_balance, currency, account_status, status_reason, opened_date, last_transaction_date, is_joint_account, allow_overdraft, allow_debit, allow_credit, is_dormant, is_blocked, blocked_date, blocked_reason, blocked_by, daily_transaction_count, is_taxable, created_at, created_by, version)
+VALUES ('dddddddd-dddd-dddd-dddd-dddddddddddd', '100000002', 'John Smith', 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee', '22222222-2222-2222-2222-222222222222', 'CHECKING', 'cccccccc-cccc-cccc-cccc-cccccccccccc', 12000.00, 12000.00, 0.00, 0.00, 'USD', 'ACTIVE', NULL, '2025-11-15', '2026-02-20', FALSE, TRUE, TRUE, TRUE, FALSE, FALSE, NULL, NULL, NULL, 3, TRUE, CURRENT_TIMESTAMP, 'system', 1);

@@ -30,6 +30,16 @@ ext {
 }
 
 dependencies {
+
+
+	// Axon Framework dependencies for CQRS and Event Sourcing with Kafka
+	implementation 'org.axonframework.extensions.kafka:axon-kafka-spring-boot-starter:4.12.0'
+	implementation 'org.axonframework:axon-spring-boot-starter:4.13.0'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-r2dbc-test'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+
 // Common module for shared code and utilities
 	implementation project(':common')
 
@@ -45,6 +55,9 @@ dependencies {
 	// WebClient for REST client communication between microservices
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
+	// Liquibase for database migrations
+	implementation 'org.springframework.boot:spring-boot-starter-liquibase'
+
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 
@@ -54,6 +67,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'org.postgresql:postgresql'
+	// PostgreSQL R2DBC driver for reactive database access
+	runtimeOnly 'org.postgresql:r2dbc-postgresql'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
 

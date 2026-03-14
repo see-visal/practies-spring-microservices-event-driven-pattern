@@ -1,0 +1,82 @@
+axon:
+
+  axonserver:
+    enabled: false
+    # serializer configuration for Axon Framework
+    # the purpose use serialization for event sourcing and command handling in Axon Framework,
+    # which allows you to convert complex  objects into a format that can be easily stored and transmitted.
+
+
+  kafka:
+    bootstrap-servers: localhost:29092,localhost:29094,localhost:29096
+    default-topic: Axon.AccountCQRS.Events
+    client-id: kafka-axon-account-query
+    message-converter-mode: default # alternative is cloud_event <https://cloudevents.io/>
+    properties:
+      security.protocol: PLAINTEXT # PLAINTEXT for no security purpose
+    consumer:
+      event-processor-mode: pooled_streaming
+
+
+  serializer:
+    general: jackson
+    events: jackson
+    messages: jackson
+
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}
+    prefer-ip-address: true
+
+server:
+  port: 20261
+spring:
+  application:
+    # Name of the microservice (used by Config Server, Eureka, logs, etc.)
+    name: accountQuery
+#  profiles:
+#    active: dev
+  config:
+    # Import external configuration from Spring Cloud Config Server
+    import: optional:configserver:http://localhost:8888
+
+# postgreSQL
+  jpa:
+    hibernate:
+      ddl-auto: none
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:16851/db_account_query
+    password: itp@168
+    username: itpusr
+
+
+  # for database migration using Liquibase
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.yml
+    url: jdbc:postgresql://localhost:16851/db_account_query
+    user: itpusr
+    password: itp@168
+    database-change-log-lock-table: DATABASECHANGELOGLOCK
+  # for reactive database access using R2DBC
+  r2dbc:
+    url: r2dbc:postgresql://localhost:16851/db_account_query
+    username: itpusr
+    password: itp@168
+
+
+
+  # Comment out OAuth2 for testing - uncomment when ready for production
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:9090
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"

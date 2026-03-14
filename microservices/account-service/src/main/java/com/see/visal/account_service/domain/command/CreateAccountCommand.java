@@ -1,8 +1,8 @@
 package com.see.visal.account_service.domain.command;
 
-import com.see.visal.account_service.domain.valueobject.AccountTypeCode;
+import com.see_visal.common.domain.valueoject.AccountTypeCode;
 //import com.see.visal.account_service.domain.valueobject.BranchId;
-import com.see.visal.account_service.domain.valueobject.Money;
+import com.see_visal.common.domain.valueoject.Money;
 import com.see_visal.common.domain.valueoject.AccountId;
 import com.see_visal.common.domain.valueoject.BranchId;
 import com.see_visal.common.domain.valueoject.CustomerId;

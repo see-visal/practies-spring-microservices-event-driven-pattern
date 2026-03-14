@@ -4,16 +4,13 @@ import com.see.visal.account_service.domain.command.CreateAccountCommand;
 import com.see.visal.account_service.domain.command.DepositMoneyCommand;
 import com.see.visal.account_service.domain.command.FreezeAccountCommand;
 import com.see.visal.account_service.domain.command.WithdrawMoneyCommand;
-import com.see.visal.account_service.domain.event.AccountCreatedEvent;
-import com.see.visal.account_service.domain.event.AccountFrozenEvent;
-import com.see.visal.account_service.domain.event.MoneyDepositedEvent;
-import com.see.visal.account_service.domain.event.MoneyWithdrawnEvent;
-import com.see.visal.account_service.domain.valueobject.AccountStatus;
-import com.see.visal.account_service.domain.valueobject.AccountTypeCode;
-import com.see.visal.account_service.domain.valueobject.Money;
-import com.see_visal.common.domain.valueoject.AccountId;
-import com.see_visal.common.domain.valueoject.BranchId;
-import com.see_visal.common.domain.valueoject.CustomerId;
+
+import com.see_visal.common.domain.event.AccountCreatedEvent;
+import com.see_visal.common.domain.event.AccountFrozenEvent;
+import com.see_visal.common.domain.event.MoneyDepositedEvent;
+import com.see_visal.common.domain.event.MoneyWithdrawnEvent;
+import com.see_visal.common.domain.valueoject.*;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

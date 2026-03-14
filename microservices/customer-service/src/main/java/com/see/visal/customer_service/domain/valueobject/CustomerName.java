@@ -1,14 +1,13 @@
 package com.see.visal.customer_service.domain.valueobject;
 
-import jakarta.persistence.Embeddable;
-import lombok.*;
 
-@Embeddable
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 public class CustomerName {
     private String familyName;
     private String givenName;

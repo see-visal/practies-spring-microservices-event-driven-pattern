@@ -1,6 +1,7 @@
 
 include ':microservices:account-service'
 include ':microservices:customer-service'
+include ':microservices:accountQuery'
 
 include ':spring-cloud:config-server'
 include ':spring-cloud:eureka-server'

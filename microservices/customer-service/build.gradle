@@ -42,27 +42,28 @@ dependencies {
 	// Eureka Client for service registration and discovery
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
+	// Spring Data JPA for database operations
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
 
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+	
 	compileOnly 'org.projectlombok:lombok'
 
 	annotationProcessor 'org.projectlombok:lombok'
 
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	runtimeOnly 'org.postgresql:postgresql'
-	testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	//
+	
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 
- // mapstruct for object mapping
+	// mapstruct for object mapping
 	compileOnly 'org.mapstruct:mapstruct:1.6.3'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'

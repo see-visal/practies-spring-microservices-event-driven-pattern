@@ -1,6 +1,23 @@
 axon:
   axonserver:
     enabled: false
+
+  kafka:
+    bootstrap-servers: localhost:29092,localhost:29094,localhost:29096
+    default-topic: Axon.AccountCQRS.Events
+    client-id: kafka-axon-account
+    message-converter-mode: default # alternative is cloud_event <https://cloudevents.io/>
+    properties:
+      security.protocol: PLAINTEXT # PLAINTEXT for no security purpose
+    publisher:
+      confirmation-mode: transactional
+    producer:
+      transaction-id-prefix: kafka-axon-
+      retries: 5 # bigger than zero in case of using transactional confirmation-mode
+      event-processor-mode: tracking
+
+
+
     # serializer configuration for Axon Framework
     # the purpose use serialization for event sourcing and command handling in Axon Framework,
     # which allows you to convert complex  objects into a format that can be easily stored and transmitted.
@@ -39,18 +56,31 @@ spring:
     # PostgreSQL JDBC driver
     driver-class-name: org.postgresql.Driver
 
+  # for database migration using Liquibase
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.yml
+    url: jdbc:postgresql://localhost:16851/db_account
+    user: itpusr
+    password: itp@168
+    database-change-log-lock-table: DATABASECHANGELOGLOCK
+
+
   jpa:
     hibernate:
-      # Update schema instead of drop and create
-      ddl-auto: update
-
-    # Show generated SQL queries in logs
+      ddl-auto: none
     show-sql: false
+    open-in-view: false
 
-    properties:
-      hibernate:
-        # Format SQL output to be more readable
-        format_sql: true
+  # for reactive database access using R2DBC
+  r2dbc:
+    url: r2dbc:postgresql://localhost:16851/db_account
+    username: itpusr
+    password: itp@168
+    pool:
+      initial-size: 10
+      max-size: 20
+      max-acquire-time: 5000
 
 
   # Comment out OAuth2 for testing - uncomment when ready for production
